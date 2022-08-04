@@ -8,6 +8,16 @@ let gasto_max =0;
 let gasto_min = 0;
 let indice_gastos = 0;
 
+class Gasto {
+    constructor(id,fecha,categoria,valor) {  // Constructor
+      this.id = id;
+      this.fecha = fecha;
+      this.categoria = categoria;
+      this.valor = valor;
+    }
+  }
+  mycar = new Car("Ford");
+
 //Funcion mensaje estado variables globales
 function alertStatus(){
     alert(`
