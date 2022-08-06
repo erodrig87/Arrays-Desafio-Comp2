@@ -1,22 +1,23 @@
 // Mensaje de informacion
-alert("Boton 'Crear Gasto', inicia blucle de pedido de 3 gastos.\nBoton 'Reset Gastos', resetea variable utilizadas..\nBoton 'Mostrar Calculos', muestra resultados de calculos realizados.");
+//alert("Boton 'Crear Gasto', inicia blucle de pedido de 3 gastos.\nBoton 'Reset Gastos', resetea variable utilizadas..\nBoton 'Mostrar Calculos', muestra resultados de calculos realizados.");
 
 //Def variables globales
 let gasto_total = 0;
 let promedio = 0;
-let gasto_max =0;
+let gasto_max = 0;
 let gasto_min = 0;
-let indice_gastos = 0;
+let indice_gastos = -1;
 
-class Gasto {
-    constructor(id,fecha,categoria,valor) {  // Constructor
-      this.id = id;
-      this.fecha = fecha;
-      this.categoria = categoria;
-      this.valor = valor;
+let arrayGastos = [];
+
+class objGasto {
+    constructor(id, fecha, categoria, valor) {
+        this.id = id;
+        this.fecha = fecha;
+        this.categoria = categoria;
+        this.valor = valor;
     }
-  }
-  mycar = new Car("Ford");
+}
 
 //Funcion mensaje estado variables globales
 function alertStatus(){
@@ -35,7 +36,7 @@ function resetGastos(dias){
     promedio = 0;
     gasto_max =0;
     gasto_min = 0;
-    indice_gastos = 0;
+    indice_gastos = -1;
     alertStatus();   
 }
 
@@ -45,9 +46,39 @@ function restarDias(dias){
     fecha.setDate(fecha.getDate() - dias);
     return fecha;
 }
+//crea un objeto gasto y 
+const crearGasto=()=> {
+
+        fecha = new Date();    
+        fecha = prompt("ingresar fecha de gasto", fecha.toLocaleDateString());
+        categoria = prompt("ingresar categoria de gasto");
+        valor = parseFloat(prompt("ingresar valor de gasto"));
+        indice_gastos++;
+
+        let gasto = new objGasto(indice_gastos,fecha, categoria, valor);
+
+        arrayGastos.push(gasto);
+
+}
+
+const mostrarGastos = () => {
+    
+let mensajeGastos = "";
+    if (arrayGastos.length > 0) {
+        arrayGastos.forEach(gasto => {
+            mensajeGastos += `
+            Gasto ingresado: Fecha: ${gasto.fecha}| Categoria: ${gasto.categoria} | Valor: ${gasto.valor.toFixed(2)}
+            `
+        })
+        alert(mensajeGastos)
+    } else {
+        mensajeGastos += 'No hay gastos'
+        alert(mensajeGastos)
+    }
+}
 
 // funcion para crear gasto -> a futuro crear objeto/clase para ser cargado en la tabla en forma dinamica
-function crearGasto()
+/*function crearGasto()
 {
     alert(`Como prueba se solicitan el ingreso de 3 valores`);
     
@@ -76,4 +107,4 @@ function crearGasto()
     }
     promedio=gasto_total/indice_gastos; // calculo promedio gastos
     alertStatus();
-}
+}*/
