@@ -8,9 +8,11 @@ let gasto_max = 0;
 let gasto_min = 0;
 let indice_gastos = -1;
 
+//Def array para almacenar objetos creados de clase Gasto
 let arrayGastos = [];
 
-class objGasto {
+// Declaracion clase Gastos, para crear objetos de tipo clase de gastos.
+class Gasto {
     constructor(id, fecha, categoria, valor) {
         this.id = id;
         this.fecha = fecha;
@@ -20,7 +22,7 @@ class objGasto {
 }
 
 //Funcion mensaje estado variables globales
-function alertStatus(){
+const alertStatus = () => {
     alert(`
     El promedio de los gastos ingresados es: ${promedio.toFixed(2)}
     El gasto maximo fue de: ${gasto_max.toFixed(2)}
@@ -30,7 +32,7 @@ function alertStatus(){
 }
 
 //Funcion resetea variables globales
-function resetGastos(dias){
+const resetGastos = (dias) => {
     
     gasto_total = 0;
     promedio = 0;
@@ -41,13 +43,13 @@ function resetGastos(dias){
 }
 
 //funcion que devuelve fecha actual - x dias pasados como parametro utilizada en dashboard.js para modificar eje x del grafico
-function restarDias(dias){
+const restarDias = (dias) => {
     fecha = new Date();
     fecha.setDate(fecha.getDate() - dias);
     return fecha;
 }
 //crea un objeto gasto y 
-const crearGasto=()=> {
+const crearGasto = () => {
 
         fecha = new Date();    
         fecha = prompt("ingresar fecha de gasto", fecha.toLocaleDateString());
@@ -55,9 +57,9 @@ const crearGasto=()=> {
         valor = parseFloat(prompt("ingresar valor de gasto"));
         indice_gastos++;
 
-        let gasto = new objGasto(indice_gastos,fecha, categoria, valor);
+        let nuevoGasto = new Gasto(indice_gastos,fecha, categoria, valor);
 
-        arrayGastos.push(gasto);
+        arrayGastos.push(nuevoGasto);
 
 }
 
@@ -65,15 +67,14 @@ const mostrarGastos = () => {
     
 let mensajeGastos = "";
     if (arrayGastos.length > 0) {
+        mensajeGastos = "Gastos realizados\n";
         arrayGastos.forEach(gasto => {
-            mensajeGastos += `
-            Gasto ingresado: Fecha: ${gasto.fecha}| Categoria: ${gasto.categoria} | Valor: ${gasto.valor.toFixed(2)}
-            `
+            mensajeGastos += `Fecha: ${gasto.fecha} | Categoria: ${gasto.categoria} | Valor: ${gasto.valor.toFixed(2)}\n`
         })
         alert(mensajeGastos)
     } else {
-        mensajeGastos += 'No hay gastos'
-        alert(mensajeGastos)
+        mensajeGastos += 'No se ingresaron gastos'
+        alert(mensajeGastos);
     }
 }
 
