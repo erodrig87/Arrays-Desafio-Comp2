@@ -33,12 +33,14 @@ const alertStatus = () => {
 
 //Funcion resetea variables globales
 const resetGastos = (dias) => {
-    
     gasto_total = 0;
     promedio = 0;
     gasto_max =0;
     gasto_min = 0;
     indice_gastos = -1;
+    while (arrayGastos.length) {
+         arrayGastos.pop();
+    }
     alertStatus();   
 }
 
@@ -50,22 +52,17 @@ const restarDias = (dias) => {
 }
 //crea un objeto gasto y 
 const crearGasto = () => {
-
         fecha = new Date();    
         fecha = prompt("ingresar fecha de gasto", fecha.toLocaleDateString());
         categoria = prompt("ingresar categoria de gasto");
         valor = parseFloat(prompt("ingresar valor de gasto"));
         indice_gastos++;
-
         let nuevoGasto = new Gasto(indice_gastos,fecha, categoria, valor);
-
         arrayGastos.push(nuevoGasto);
-
 }
 
 //Muestra gastos realizados recorriendo el array
 const mostrarGastos = () => {
-    
     let mensajeGastos = "";
     if (arrayGastos.length > 0) {
         mensajeGastos = "Gastos realizados\n";
@@ -80,25 +77,22 @@ const mostrarGastos = () => {
 }
 
 //Devuelve la posicion del gasto maximo
-
 const maxGasto = () => {
-
     const valores = arrayGastos.map((object) => object.valor);
-    console.log(valores); 
     max = Math.max.apply(null,valores);
-    console.log(max);
     return valores.indexOf(max);
-
+}
+//Devuelve la posicion del gasto minimo
+const minGasto = () => {
+    const valores = arrayGastos.map((object) => object.valor);
+    min = Math.min.apply(null,valores);
+    return valores.indexOf(min);
 }
 
-const minGasto = () => {
-
-    const valores = arrayGastos.map((object) => object.valor);
-    console.log(valores); 
-    min = Math.min.apply(null,valores);
-    console.log(max);
-    return valores.indexOf(min);
-
+const promedioGastos = () => {
+    let suma_valores = 0;
+    arrayGastos.forEach(function(gasto) { suma_valores += gasto.valor });
+    return suma_valores/arrayGastos.length;
 }
 
 const mostrarCalculos = () => {
@@ -109,6 +103,7 @@ const mostrarCalculos = () => {
         let indexGastoMin = minGasto();
         mensajeCalculos += `Gasto Maximo = Fecha: ${arrayGastos[indexGastoMax].fecha} | Categoria: ${arrayGastos[indexGastoMax].categoria} | Valor: ${arrayGastos[indexGastoMax].valor.toFixed(2)}\n`
         mensajeCalculos += `Gasto Minimo = Fecha: ${arrayGastos[indexGastoMin].fecha} | Categoria: ${arrayGastos[indexGastoMin].categoria} | Valor: ${arrayGastos[indexGastoMin].valor.toFixed(2)}\n`
+        mensajeCalculos += `Promedio de gastos: ${promedioGastos().toFixed(2)}`
         alert(mensajeCalculos)
     } else {
         mensajeCalculos += 'No es posible realizar calculos debido a que no se ingresaron gastos'
