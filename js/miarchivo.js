@@ -63,9 +63,10 @@ const crearGasto = () => {
 
 }
 
+//Muestra gastos realizados recorriendo el array
 const mostrarGastos = () => {
     
-let mensajeGastos = "";
+    let mensajeGastos = "";
     if (arrayGastos.length > 0) {
         mensajeGastos = "Gastos realizados\n";
         arrayGastos.forEach(gasto => {
@@ -75,6 +76,43 @@ let mensajeGastos = "";
     } else {
         mensajeGastos += 'No se ingresaron gastos'
         alert(mensajeGastos);
+    }
+}
+
+//Devuelve la posicion del gasto maximo
+
+const maxGasto = () => {
+
+    const valores = arrayGastos.map((object) => object.valor);
+    console.log(valores); 
+    max = Math.max.apply(null,valores);
+    console.log(max);
+    return valores.indexOf(max);
+
+}
+
+const minGasto = () => {
+
+    const valores = arrayGastos.map((object) => object.valor);
+    console.log(valores); 
+    min = Math.min.apply(null,valores);
+    console.log(max);
+    return valores.indexOf(min);
+
+}
+
+const mostrarCalculos = () => {
+    
+    let mensajeCalculos = "";
+    if (arrayGastos.length > 0) {
+        let indexGastoMax = maxGasto();
+        let indexGastoMin = minGasto();
+        mensajeCalculos += `Gasto Maximo = Fecha: ${arrayGastos[indexGastoMax].fecha} | Categoria: ${arrayGastos[indexGastoMax].categoria} | Valor: ${arrayGastos[indexGastoMax].valor.toFixed(2)}\n`
+        mensajeCalculos += `Gasto Minimo = Fecha: ${arrayGastos[indexGastoMin].fecha} | Categoria: ${arrayGastos[indexGastoMin].categoria} | Valor: ${arrayGastos[indexGastoMin].valor.toFixed(2)}\n`
+        alert(mensajeCalculos)
+    } else {
+        mensajeCalculos += 'No es posible realizar calculos debido a que no se ingresaron gastos'
+        alert(mensajeCalculos);
     }
 }
 
