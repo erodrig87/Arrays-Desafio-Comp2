@@ -32,7 +32,7 @@ const alertStatus = () => {
     Cantidad de gastos ingresados: ${arrayGastos.length}`);
 }
 
-//Funcion resetea variables globales
+//Funcion resetea variables globales y elimina objetos del array de gastos
 const resetGastos = (dias) => {
     gasto_total = 0;
     promedio = 0;
